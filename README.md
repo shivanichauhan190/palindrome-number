@@ -1,1 +1,1 @@
-# palindrome-number
+# summer internship program
