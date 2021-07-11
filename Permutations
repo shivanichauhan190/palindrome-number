@@ -1,0 +1,22 @@
+public class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+
+  List<List<Integer>> result = new ArrayList<List<Integer>>();
+        permutae(result, nums, 0, new ArrayList<Integer>());
+        return result;
+    }
+
+    public void permutae(List<List<Integer>> result, int[] nums, int index, List<Integer> current) {
+        if (index == nums.length) {
+            result.add(current);
+            return;
+        }
+
+        int currentValue = nums[index];
+        for(int i = 0; i <= current.size(); i ++) {
+            List<Integer> newList = new ArrayList<Integer>(current);
+            newList.add(i, currentValue);
+            permutae(result, nums, index + 1, newList);
+        }
+    }
+}
