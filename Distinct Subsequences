@@ -1,0 +1,26 @@
+class Solution {
+    public int numDistinct(String s, String t) {
+        // edge cases
+        if (s == null || t == null || s.length() < t.length()) return 0;
+
+        int slen = s.length(), tlen = t.length();
+        int[][] dp = new int[tlen+1][slen+1];
+
+        // init
+        for (int si = 0; si <= slen; si++) {
+            dp[0][si] = 1;
+        }
+
+        for (int ti = 1; ti < dp.length; ti++) {
+            for (int si = 1; si < dp[0].length; si++) {
+                if (s.charAt(si-1) == t.charAt(ti-1)) {
+                    dp[ti][si] = dp[ti][si-1] + dp[ti-1][si-1];
+                } else {
+                    dp[ti][si] = dp[ti][si-1];
+                }
+            }
+        }
+
+        return dp[tlen][slen];
+    }
+}
