@@ -1,0 +1,42 @@
+public class Solution {
+    public String multiply(String num1, String num2) {
+          int size1 = num1.length();
+        int size2 = num2.length();
+
+        int[] result = new int[size1 * size2 + 1];
+
+        for (int i = 0; i < size1; i++) {
+            for (int j = 0; j < size2; j++) {
+                int a = Integer.valueOf(String.valueOf(num1.charAt(size1 - i - 1)));
+                int b = Integer.valueOf(String.valueOf((num2.charAt(size2 - j - 1))));
+
+                result[i + j] += a * b;
+            }
+        }
+
+        int[] copy = new int[size1 * size2 + 1];
+        int adder = 0;
+
+        for (int i = 0; i < size1 * size2+1; i++) {
+
+            int sum = adder + result[i];
+            copy[i] = sum % 10;
+            adder = sum / 10;
+        }
+
+        StringBuffer sb = new StringBuffer();
+        int start;
+        for (start = size1 * size2; start >= 0; start--) {
+            if (copy[start] != 0) break;
+        }
+
+        for (int i = start; i >= 0; i--) {
+            sb.append(copy[i]);
+        }
+
+        if (sb.toString().equals(""))
+            return "0";
+
+        return sb.toString();
+    }
+}
