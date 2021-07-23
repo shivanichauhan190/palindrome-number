@@ -1,0 +1,48 @@
+public class Solution {
+    public int numIslands(char[][] grid) {
+
+        int result = 0;
+        int m = grid.length;
+                if (m == 0) return 0;
+
+        int n = grid[0].length;
+
+        boolean[][] visited = new boolean[m][n];
+
+        for(int i = 0; i < m; i ++) {
+            for(int j = 0; j < n; j ++) {
+                if (grid[i][j] == '1' && !visited[i][j]) {
+                    result ++;
+                    dfs(grid, visited, i,j,m,n);
+                }
+            }
+        }
+
+        return result;
+
+    }
+
+    public void dfs(char[][] grid, boolean[][] visited, int x, int y, int m, int n) {
+        visited[x][y] = true;
+
+        if (isValid(x + 1, y, m, n) && !visited[x + 1][y] && grid[x + 1][y] == '1') {
+            dfs(grid, visited, x + 1, y, m, n);
+        }
+
+        if (isValid(x - 1, y, m, n) && !visited[x - 1][y] && grid[x - 1][y] == '1') {
+            dfs(grid, visited, x - 1, y, m, n);
+        }
+
+        if (isValid(x, y + 1, m, n) && !visited[x][y + 1] && grid[x][y + 1] == '1') {
+            dfs(grid, visited, x, y + 1, m, n);
+        }
+
+        if (isValid(x, y - 1, m, n) && !visited[x][y - 1] && grid[x][y - 1] == '1') {
+            dfs(grid, visited, x, y - 1, m, n);
+        }
+    }
+
+    public boolean isValid(int x, int y, int m, int n) {
+        return x >= 0 && x <= m - 1 && y >= 0 && y <= n - 1;
+    }
+}
