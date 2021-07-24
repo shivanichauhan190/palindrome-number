@@ -1,0 +1,46 @@
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
+class MedianFinder {
+
+    // Adds a number into the data structure.
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>(10, new Comparator<Integer>(){
+       @Override
+       public int compare(Integer x, Integer y){
+           return y-x;
+       }
+    });
+
+    public void addNum(int num) {
+        int size = minHeap.size() + maxHeap.size();
+        if((size & 1) == 0){
+            if(maxHeap.size() > 0 && num < maxHeap.peek()){
+                maxHeap.offer(num);
+                num = maxHeap.poll();
+            }
+            minHeap.offer(num);
+        }else{
+            if(minHeap.size() > 0 && num > minHeap.peek()){
+                minHeap.offer(num);
+                num = minHeap.poll();
+            }
+            maxHeap.offer(num);
+        }
+    }
+
+    // Returns the median of current data stream
+    public double findMedian() {
+        int size = minHeap.size() + maxHeap.size();
+        //make sure size is not zero.
+        if((size & 1) == 0){
+            return (minHeap.peek() + maxHeap.peek())/2.0;
+        }else{
+            return minHeap.peek();
+        }
+
+    }
+};
