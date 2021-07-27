@@ -1,0 +1,35 @@
+public class Solution {
+    public String getHint(String secret, String guess) {
+        int bulls = 0;
+        int cows = 0;
+        HashMap<Character, Integer> sec = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> gue = new HashMap<Character, Integer>();
+        for (int i = 0; i < secret.length(); i ++) {
+            if (secret.charAt(i) == guess.charAt(i)) {
+                bulls ++;
+            }
+            else {
+                char a = secret.charAt(i);
+                char b = guess.charAt(i);
+                if (!sec.containsKey(a)) {
+                    sec.put(a, 1);
+                }
+                else {
+                    sec.put(a, sec.get(a) + 1);
+                }
+                if (!gue.containsKey(b)) {
+                    gue.put(b, 1);
+                }
+                else {
+                    gue.put(b, gue.get(b) + 1);
+                }
+            }
+        }
+        for (Character c:gue.keySet()) {
+            if (sec.containsKey(c)) {
+                cows += Math.min(sec.get(c), gue.get(c));
+            }
+        }
+        return bulls + "A" + cows + "B";
+    }
+}
