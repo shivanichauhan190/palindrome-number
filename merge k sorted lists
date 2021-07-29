@@ -1,0 +1,68 @@
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        // build priority heap
+        // always take lists[0]
+        // if lists[0] == null, swap to tail, reduce 1 loop
+        // heapify(list[0])
+
+        // corner cases
+        if (lists.length == 0) return null;
+        if (lists.length == 1) return lists[0];
+
+        // build binary heap
+        for (int i = lists.length - 1; i >= 0; i--) {
+            heapify(lists, i);
+        }
+
+        // dummy node take result;
+        ListNode dummy = new ListNode(0);
+        ListNode d = dummy;
+
+        // loop
+        for (int k = lists.length-1; k > 0; k--) {
+            while (lists[0] != null) {
+                heapify(lists, 0);
+                d.next = lists[0];
+                d = d.next;
+                lists[0] = lists[0].next;
+            }
+            ListNode tmp = lists[k];
+            lists[k] = lists[0];
+            lists[0] = tmp;
+        }
+        d.next = lists[0];
+
+        return dummy.next;
+    }
+    private void heapify(ListNode[] lists, int i) {
+        int min = i, l = 2*i+1, r = 2*i+2, n = lists.length;
+
+        // compare root & left;
+        if (l < n && lists[l] != null) {
+            if (lists[min] == null || lists[l].val < lists[min].val) {
+                min = l;
+            }
+        }
+
+        // compare right & min
+        if (r < n && lists[r] != null) {
+            if (lists[min] == null || lists[r].val < lists[min].val) {
+                min = r;
+            }
+        }
+
+        // swap?
+        if (min == i || lists[min] == null) {
+            return; // already min, no need to swap.
+        } else {
+
+        // swap root & minIdx
+            ListNode tmp = lists[i];
+            lists[i] = lists[min];
+            lists[min] = tmp;
+        }
+
+        // heapify minIdx
+        heapify(lists, min);
+    }
+}
