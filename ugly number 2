@@ -1,0 +1,15 @@
+class Solution {
+    public int nthUglyNumber(int n) {
+        TreeSet<Long> ts = new TreeSet<Long>();
+        ts.add(1l);
+
+        for (int i = 1; i < n; i++) {
+            Long head = ts.pollFirst();
+            ts.add(head * 2);
+            ts.add(head * 3);
+            ts.add(head * 5);
+        }
+
+        return ts.pollFirst().intValue();
+    }
+}
