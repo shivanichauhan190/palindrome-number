@@ -1,0 +1,30 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<String>();
+        // edge case
+        if (digits == null || digits.length() == 0) return res;
+
+        String[] buttons = new String[]{"", "", "abc","def", "ghi", "jkl","mno", "pqrs", "tuv","wxyz"};
+
+        Queue<String> q = new LinkedList<>();
+        q.offer("");
+
+        for (int i = 0; i < digits.length(); i++) {
+            char c = digits.charAt(i);
+            if (c == '0' || c == '1') continue;
+
+            String letters = buttons[c-'0'];
+            int len = q.size();
+            for (int j = 0; j < len; j++) {
+                String h = q.poll();
+                for (char chr : letters.toCharArray()) {
+                    q.offer(h+chr);
+                }
+            }
+        }
+
+        res.addAll(q);
+
+        return res;
+    }
+}
