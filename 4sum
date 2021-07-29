@@ -1,0 +1,48 @@
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        return helper(nums, 0, 4, target);
+    }
+
+    private List<List<Integer>> helper(int[] nums, int start, int ksum, int target) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        // exit
+        if (start >= nums.length) return res;
+
+        if (ksum == 2) {
+            int l = start, r = nums.length - 1;
+            while (l < r) {
+                int sum = nums[l] + nums[r];
+                if (sum == target) {
+                    List<Integer> tmp = new ArrayList<Integer>();
+                    tmp.add(nums[l]);
+                    tmp.add(nums[r]);
+                    res.add(tmp);
+                    // skip duplicate
+                    while (l < r && nums[l] == nums[l+1]) l++;
+                    while (l < r && nums[r] == nums[r-1]) r--;
+                    l++;
+                    r--;
+                } else if (sum < target) {
+                    l++;
+                } else {
+                    r--;
+                }
+            }
+            return res;
+        }
+
+        // recursion
+        for (int i = start; i <= nums.length - ksum; i++) {
+            if (i > start && nums[i] == nums[i-1]) continue; // skip duplicate
+            // child result
+            List<List<Integer>> child = helper(nums, i+1, ksum-1, target-nums[i]);
+            for (List<Integer> list : child) {
+                list.add(nums[i]);
+            }
+            res.addAll(child);
+        }
+
+        return res;
+    }
+}
