@@ -1,0 +1,91 @@
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        // edge cases
+        if (n < 1) return new ArrayList<>();
+
+        return helper(1,n);
+    }
+
+    private List<TreeNode> helper(int s, int e) {
+        List<TreeNode> res = new ArrayList<>(), left = new ArrayList<>(), right = new ArrayList<>();
+        // exit
+        if (s > e) res.add(null);
+        // if (s == e) res.add(new TreeNode(s));
+
+        for (int i = s; i <= e; i++) {
+            left = helper(s, i-1);
+            right = helper(i+1, e);
+
+            for (TreeNode l : left) {
+                for (TreeNode r : right) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = l;
+                    root.right = r;
+                    res.add(root);
+                }
+            }
+        }
+
+        return res;
+    }
+}class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        // edge cases
+        if (n < 1) return new ArrayList<>();
+
+        return helper(1,n);
+    }
+
+    private List<TreeNode> helper(int s, int e) {
+        List<TreeNode> res = new ArrayList<>(), left = new ArrayList<>(), right = new ArrayList<>();
+        // exit
+        if (s > e) res.add(null);
+        // if (s == e) res.add(new TreeNode(s));
+
+        for (int i = s; i <= e; i++) {
+            left = helper(s, i-1);
+            right = helper(i+1, e);
+
+            for (TreeNode l : left) {
+                for (TreeNode r : right) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = l;
+                    root.right = r;
+                    res.add(root);
+                }
+            }
+        }
+
+        return res;
+    }
+}class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        // edge cases
+        if (n < 1) return new ArrayList<>();
+
+        return helper(1,n);
+    }
+
+    private List<TreeNode> helper(int s, int e) {
+        List<TreeNode> res = new ArrayList<>(), left = new ArrayList<>(), right = new ArrayList<>();
+        // exit
+        if (s > e) res.add(null);
+        // if (s == e) res.add(new TreeNode(s));
+
+        for (int i = s; i <= e; i++) {
+            left = helper(s, i-1);
+            right = helper(i+1, e);
+
+            for (TreeNode l : left) {
+                for (TreeNode r : right) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = l;
+                    root.right = r;
+                    res.add(root);
+                }
+            }
+        }
+
+        return res;
+    }
+}
